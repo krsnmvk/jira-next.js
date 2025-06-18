@@ -1,5 +1,4 @@
-import { Button } from '@/components/ui/button';
-import Image from 'next/image';
+import AuthNavbar from '@/modules/auth/components/auth-navbar';
 
 export default function Layout({
   children,
@@ -9,12 +8,7 @@ export default function Layout({
   return (
     <div className="bg-neutral-100 min-h-svh">
       <div className="max-w-screen-2xl mx-auto p-4">
-        <nav className="flex items-center justify-between">
-          <Image src="/logo.svg" alt="Logo" width={152} height={50} />
-          <Button type="button" variant="outline">
-            Sign up
-          </Button>
-        </nav>
+        <AuthNavbar />
         <div className="flex flex-col items-center justify-center p-4 md:p-14">
           {children}
         </div>
