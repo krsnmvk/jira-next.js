@@ -4,7 +4,7 @@ import { signinInsertSchema } from './sign-in-schema';
 export const signupInsertSchema = signinInsertSchema
   .extend({
     name: z.string().min(3).trim(),
-    confirmPassword: z.string().min(3),
+    confirmPassword: z.string().min(3).trim().optional(),
   })
   .refine(({ password, confirmPassword }) => password === confirmPassword, {
     message: 'Password does not match',
