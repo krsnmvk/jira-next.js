@@ -24,6 +24,7 @@ import {
   signupInsertSchema,
   SignUpInsertSchema,
 } from '../validation/sign-up-schema';
+import { useRegisterApi } from '../api/register-api';
 
 export default function SignUpCard() {
   const form = useForm<SignUpInsertSchema>({
@@ -36,7 +37,16 @@ export default function SignUpCard() {
     },
   });
 
-  function onSubmit(values: SignUpInsertSchema) {}
+  const { mutate, isPending } = useRegisterApi();
+
+  function onSubmit(values: SignUpInsertSchema) {
+    console.log(values);
+    mutate({
+      name: values.name,
+      email: values.email,
+      password: values.password,
+    });
+  }
 
   return (
     <Card className="w-full h-full md:w-md border-none shadow-none">
@@ -63,7 +73,12 @@ export default function SignUpCard() {
                 <FormItem>
                   <FormLabel>Name</FormLabel>
                   <FormControl>
-                    <Input type="text" placeholder="jhon example" {...field} />
+                    <Input
+                      type="text"
+                      disabled={isPending}
+                      placeholder="jhon example"
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -78,6 +93,7 @@ export default function SignUpCard() {
                   <FormControl>
                     <Input
                       type="text"
+                      disabled={isPending}
                       placeholder="jhon@example.com"
                       {...field}
                     />
@@ -93,7 +109,12 @@ export default function SignUpCard() {
                 <FormItem>
                   <FormLabel>Password</FormLabel>
                   <FormControl>
-                    <Input type="password" placeholder="******" {...field} />
+                    <Input
+                      type="password"
+                      disabled={isPending}
+                      placeholder="******"
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -106,13 +127,23 @@ export default function SignUpCard() {
                 <FormItem>
                   <FormLabel>Confirm Password</FormLabel>
                   <FormControl>
-                    <Input type="password" placeholder="******" {...field} />
+                    <Input
+                      type="password"
+                      disabled={isPending}
+                      placeholder="******"
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
-            <Button type="submit" size="lg" className="w-full">
+            <Button
+              type="submit"
+              disabled={isPending}
+              size="lg"
+              className="w-full"
+            >
               Sign up
             </Button>
           </form>
